@@ -2,7 +2,7 @@
 title: "Jogo de exemplo 1"
 ordem: 1
 destaque: true
-genero: Plataformas
+genero: Platformer
 plataformas: [Windows, Web]
 estado: Em desenvolvimento
 lancamento: 2026-09-01

@@ -1,4 +1,7 @@
 <!-- Barra lateral direita (usada na Home e nos posts): "Sobre mim" e "Links". -->
+{% assign itch = site.itch_url | default: "" %}
+{% assign github = site.github_url | default: "" %}
+{% assign email = site.email | default: "" %}
 <aside class="barra-direita">
   <div class="bloco">
     <h2>Sobre mim</h2>
@@ -8,9 +11,9 @@
   <div class="bloco">
     <h2>Links</h2>
     <ul>
-      {% if site.itch_url != blank %}<li><a href="{{ site.itch_url }}" target="_blank" rel="noopener">itch.io</a></li>{% endif %}
-      {% if site.github_url != blank %}<li><a href="{{ site.github_url }}" target="_blank" rel="noopener">GitHub</a></li>{% endif %}
-      {% if site.email != blank %}<li><a href="mailto:{{ site.email }}">Email</a></li>{% endif %}
+      {% if itch != "" %}<li><a href="{{ itch }}" target="_blank" rel="noopener">itch.io</a></li>{% endif %}
+      {% if github != "" %}<li><a href="{{ github }}" target="_blank" rel="noopener">GitHub</a></li>{% endif %}
+      {% if email != "" %}<li><a href="mailto:{{ email }}">Email</a></li>{% endif %}
     </ul>
   </div>
 </aside>

@@ -36,11 +36,14 @@ layout: default
         </dl>
       </div>
 
+      {% assign link_itch = page.link_itch | default: "" %}
+      {% assign link_download = page.link_download | default: "" %}
+      {% assign link_github = page.link_github | default: "" %}
       <h2>Como aceder</h2>
-      {% if page.link_itch != blank %}<a class="botao" href="{{ page.link_itch }}" target="_blank" rel="noopener">Jogar no itch.io</a>{% endif %}
-      {% if page.link_download != blank %}<a class="botao" href="{{ page.link_download }}" target="_blank" rel="noopener">Download</a>{% endif %}
-      {% if page.link_github != blank %}<a class="botao" href="{{ page.link_github }}" target="_blank" rel="noopener">Código no GitHub</a>{% endif %}
-      {% if page.link_itch == blank and page.link_download == blank and page.link_github == blank %}
+      {% if link_itch != "" %}<a class="botao" href="{{ link_itch }}" target="_blank" rel="noopener">Jogar no itch.io</a>{% endif %}
+      {% if link_download != "" %}<a class="botao" href="{{ link_download }}" target="_blank" rel="noopener">Download</a>{% endif %}
+      {% if link_github != "" %}<a class="botao" href="{{ link_github }}" target="_blank" rel="noopener">Código no GitHub</a>{% endif %}
+      {% if link_itch == "" and link_download == "" and link_github == "" %}
         <p class="bloco">Links em breve.</p>
       {% endif %}
     </aside>

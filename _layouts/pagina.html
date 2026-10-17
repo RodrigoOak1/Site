@@ -18,16 +18,19 @@ layout: default
         {{ content }}
       </div>
 
+      {% assign itch = site.itch_url | default: "" %}
+      {% assign github = site.github_url | default: "" %}
+      {% assign email = site.email | default: "" %}
       <h2>Contactos e onde me encontrar</h2>
       <ul class="lista-links">
-        {% if site.email != blank %}
-        <li class="bloco linha"><span>Email</span><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        {% if email != "" %}
+        <li class="bloco linha"><span>Email</span><a href="mailto:{{ email }}">{{ email }}</a></li>
         {% endif %}
-        {% if site.github_url != blank %}
-        <li class="bloco linha"><span>GitHub</span><a href="{{ site.github_url }}" target="_blank" rel="noopener">{{ site.github_url | remove: "https://" }}</a></li>
+        {% if github != "" %}
+        <li class="bloco linha"><span>GitHub</span><a href="{{ github }}" target="_blank" rel="noopener">{{ github | remove: "https://" }}</a></li>
         {% endif %}
-        {% if site.itch_url != blank %}
-        <li class="bloco linha"><span>itch.io</span><a href="{{ site.itch_url }}" target="_blank" rel="noopener">{{ site.itch_url | remove: "https://" }}</a></li>
+        {% if itch != "" %}
+        <li class="bloco linha"><span>itch.io</span><a href="{{ itch }}" target="_blank" rel="noopener">{{ itch | remove: "https://" }}</a></li>
         {% endif %}
       </ul>
     </div>

@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<!-- Lista simples de posts, com filtro por tipo. -->
+<div class="pagina">
+
+  {{ content }}
+
+  <div class="bloco filtros" id="filtros">
+    <span>Filtros:</span>
+    <a href="{{ '/blog/' | relative_url }}" data-tipo="todos" class="ativo">Todos</a>
+    {% assign tipos = site.posts | map: "tipo" | uniq %}
+    {% for t in tipos %}
+      {% if t %}
+      {% assign chave = t | slugify: "latin" %}
+      <a href="{{ '/blog/' | relative_url }}?tipo={{ chave }}" data-tipo="{{ chave }}">{{ t }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <ul class="lista-links" id="lista-posts">
+    {% for post in site.posts %}
+    <li class="bloco linha" data-tipo="{{ post.tipo | slugify: 'latin' }}">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <span class="tipo">{{ post.tipo }}</span>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+    </li>
+    {% endfor %}
+  </ul>
+
+</div>
+<script src="{{ '/assets/js/filtro.js' | relative_url }}" defer></script>

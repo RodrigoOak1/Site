@@ -1,0 +1,8 @@
+<!-- Menu principal. A página onde está fica sublinhada (classe "ativo"). -->
+{% assign url = page.url %}
+<nav class="menu" aria-label="Menu principal">
+  <a href="{{ '/' | relative_url }}"{% if url == '/' %} class="ativo" aria-current="page"{% endif %}>Início</a>
+  <a href="{{ '/blog/' | relative_url }}"{% if url contains '/blog/' %} class="ativo"{% endif %}>Blog</a>
+  <a href="{{ '/jogos/' | relative_url }}"{% if url contains '/jogos/' %} class="ativo"{% endif %}>Jogos</a>
+  <a href="{{ '/sobre/' | relative_url }}"{% if url contains '/sobre/' %} class="ativo"{% endif %}>Sobre</a>
+</nav>

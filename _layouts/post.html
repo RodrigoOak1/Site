@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<!-- Página de um post: segue o layout do "Desktop - 1" do Figma. -->
+<div class="barra-info">
+  <span>Tipo de post: {{ page.tipo }}</span>
+  <span>data da postagem: {{ page.date | date: "%d/%m/%Y" }}</span>
+</div>
+
+<div class="tres-colunas">
+
+  <aside class="barra-esquerda bloco">
+    <h2>Posts recentes</h2>
+    <ul>
+      {% for p in site.posts limit: 6 %}
+        {% unless p.url == page.url %}
+        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+        {% endunless %}
+      {% endfor %}
+    </ul>
+    <p><a href="{{ '/blog/' | relative_url }}">Todos os posts →</a></p>
+  </aside>
+
+  <article class="conteudo-post bloco">
+    {{ content }}
+  </article>
+
+  {% include barra-direita.html %}
+
+</div>

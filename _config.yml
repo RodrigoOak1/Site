@@ -1,0 +1,50 @@
+# ============================================================
+#  CONFIGURAÇÕES GERAIS DO SITE
+#  Mude aqui o nome do site, os seus links e o resto.
+#  (Depois de mudar este ficheiro, o GitHub volta a gerar o site sozinho.)
+# ============================================================
+
+title: Site do Rodrigo
+description: Portefólio de jogos e blog
+lang: pt
+
+# O site vive em rodrigooak1.github.io/site, por isso o "baseurl" é o nome do repositório.
+# Se um dia usar um domínio próprio, deixe o baseurl vazio:  baseurl: ""
+baseurl: "/site"
+url: "https://rodrigooak1.github.io"
+
+# ---- Os seus dados (aparecem no rodapé, na barra lateral e na página Sobre) ----
+# Deixe "" para esconder um item.
+autor: "Rodrigo"
+sobre_curto: "Escreva aqui uma ou duas frases sobre si."
+github_url: "https://github.com/rodrigooak1"
+itch_url: ""        # ex.: https://o-seu-nome.itch.io
+email: ""           # ex.: nome@exemplo.com (atenção: fica público no site)
+
+# ---- Parte técnica (normalmente não é preciso mexer) ----
+markdown: kramdown
+permalink: /blog/:title/
+
+collections:
+  games:
+    output: true
+    permalink: /jogos/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      tipo: "Blog"
+  - scope:
+      path: ""
+      type: "games"
+    values:
+      layout: "jogo"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

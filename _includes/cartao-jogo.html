@@ -1,0 +1,7 @@
+<!-- Cartão de um jogo (capa, título, género e plataformas). Usado na Home e na grelha de Jogos. -->
+{% assign g = include.game %}
+<a class="cartao" href="{{ g.url | relative_url }}">
+  <img class="capa" src="{{ g.capa | default: '/assets/img/capa-exemplo.svg' | relative_url }}" alt="Capa de {{ g.title | escape }}" loading="lazy">
+  <strong class="cartao-titulo">{{ g.title }}</strong>
+  <span class="cartao-sub">{{ g.genero }}{% if g.plataformas %}{% if g.genero %} · {% endif %}{{ g.plataformas | join: ", " }}{% endif %}</span>
+</a>

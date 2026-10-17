@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{% assign jogos = site.games | sort: "ordem" %}
+{% assign destaque = jogos | where: "destaque", true | first %}
+{% unless destaque %}{% assign destaque = jogos | first %}{% endunless %}
+
+<div class="tres-colunas">
+
+  <!-- Barra lateral esquerda -->
+  <aside class="barra-esquerda bloco">
+    <h2>Categorias</h2>
+    <ul>
+      <li><a href="{{ '/blog/?tipo=blog' | relative_url }}">Blog</a></li>
+      <li><a href="{{ '/blog/?tipo=analise' | relative_url }}">Análises</a></li>
+      <li><a href="{{ '/blog/?tipo=jogo' | relative_url }}">Jogos</a></li>
+    </ul>
+    <h2>Arquivo</h2>
+    <ul>
+      <li><a href="{{ '/blog/' | relative_url }}">Todos os posts</a></li>
+    </ul>
+  </aside>
+
+  <!-- Coluna principal -->
+  <div class="coluna-principal">
+
+    {% if destaque %}
+    <a class="destaque" href="{{ destaque.url | relative_url }}">
+      <img src="{{ destaque.capa | default: '/assets/img/capa-exemplo.svg' | relative_url }}" alt="">
+      <span class="destaque-texto">
+        <small>Em destaque</small>
+        <strong>{{ destaque.title }}</strong>
+        {% if destaque.resumo %}<span>{{ destaque.resumo }}</span>{% endif %}
+      </span>
+    </a>
+    {% endif %}
+
+    <h2>Jogos (itch.io)</h2>
+    <div class="grelha-cartoes tres">
+      {% for game in jogos limit: 3 %}
+        {% include cartao-jogo.html game=game %}
+      {% endfor %}
+    </div>
+    <p class="ver-todos"><a href="{{ '/jogos/' | relative_url }}">Ver todos os jogos →</a></p>
+
+    <h2>Últimos posts</h2>
+    <ul class="lista-posts">
+      {% for post in site.posts limit: 3 %}
+      <li class="bloco post-resumo">
+        <a class="post-titulo" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <span class="meta">{{ post.tipo }} · {{ post.date | date: "%d/%m/%Y" }}</span>
+        <p>{{ post.resumo | default: post.excerpt | strip_html | strip | truncatewords: 25 }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="ver-todos"><a href="{{ '/blog/' | relative_url }}">Ver todos os posts →</a></p>
+
+  </div>
+
+  <!-- Barra lateral direita -->
+  {% include barra-direita.html %}
+
+</div>

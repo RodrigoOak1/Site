@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<!-- Grelha com as capas de todos os jogos (cada capa leva à página do jogo). -->
+<div class="pagina">
+
+  {{ content }}
+
+  {% assign jogos = site.games | sort: "ordem" %}
+  <div class="grelha-cartoes quatro">
+    {% for game in jogos %}
+      {% include cartao-jogo.html game=game %}
+    {% endfor %}
+  </div>
+
+</div>

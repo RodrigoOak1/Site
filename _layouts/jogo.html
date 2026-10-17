@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<!-- Página de um jogo: imagens e descrição à esquerda; informações e links à direita. -->
+<div class="pagina">
+
+  <p class="bloco voltar"><a href="{{ '/jogos/' | relative_url }}">← Voltar aos jogos</a></p>
+
+  <div class="duas-colunas">
+
+    <div class="coluna-media">
+      <img class="imagem-principal" src="{{ page.imagem | default: page.capa | default: '/assets/img/capa-exemplo.svg' | relative_url }}" alt="Imagem de {{ page.title | escape }}">
+
+      {% if page.capturas %}
+      <div class="capturas">
+        {% for c in page.capturas %}
+          <img src="{{ c | relative_url }}" alt="Captura de ecrã {{ forloop.index }} de {{ page.title | escape }}" loading="lazy">
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="bloco descricao">
+        {{ content }}
+      </div>
+    </div>
+
+    <aside class="coluna-info">
+      <div class="bloco info">
+        <h2>Informações</h2>
+        <dl>
+          {% if page.genero %}<dt>Género</dt><dd>{{ page.genero }}</dd>{% endif %}
+          {% if page.plataformas %}<dt>Plataformas</dt><dd>{{ page.plataformas | join: ", " }}</dd>{% endif %}
+          {% if page.estado %}<dt>Estado</dt><dd>{{ page.estado }}</dd>{% endif %}
+          {% if page.lancamento %}<dt>Lançamento</dt><dd>{{ page.lancamento | date: "%d/%m/%Y" }}</dd>{% endif %}
+          {% if page.ferramentas %}<dt>Ferramentas</dt><dd>{{ page.ferramentas | join: ", " }}</dd>{% endif %}
+        </dl>
+      </div>
+
+      <h2>Como aceder</h2>
+      {% if page.link_itch != blank %}<a class="botao" href="{{ page.link_itch }}" target="_blank" rel="noopener">Jogar no itch.io</a>{% endif %}
+      {% if page.link_download != blank %}<a class="botao" href="{{ page.link_download }}" target="_blank" rel="noopener">Download</a>{% endif %}
+      {% if page.link_github != blank %}<a class="botao" href="{{ page.link_github }}" target="_blank" rel="noopener">Código no GitHub</a>{% endif %}
+      {% if page.link_itch == blank and page.link_download == blank and page.link_github == blank %}
+        <p class="bloco">Links em breve.</p>
+      {% endif %}
+    </aside>
+
+  </div>
+</div>

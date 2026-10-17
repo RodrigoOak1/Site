@@ -1,0 +1,343 @@
+/* ============================================================
+   ESTILO DO SITE
+   Segue os wireframes do Figma (blocos cinzentos, texto preto).
+   Para mudar o aspeto do site inteiro, mexa nas CORES e MEDIDAS
+   logo aqui em baixo. O resto do ficheiro usa esses valores.
+   ============================================================ */
+
+:root {
+  /* ---------- CORES ---------- */
+  --cor-fundo: #ffffff;        /* fundo da página */
+  --cor-bloco: #d9d9d9;        /* blocos cinzentos (cabeçalho, menu, cartões...) */
+  --cor-bloco-escuro: #bdbdbd; /* capas e blocos mais escuros / ao passar o rato */
+  --cor-texto: #000000;        /* cor do texto */
+
+  /* ---------- MEDIDAS ---------- */
+  --largura-max: 1440px;       /* largura máxima do site */
+  --espaco: 20px;              /* espaço entre blocos */
+  --margem-lateral: 46px;      /* margem esquerda/direita nas páginas */
+  --largura-barra: 272px;      /* largura das barras laterais */
+}
+
+/* ---------- BASE ---------- */
+* { box-sizing: border-box; }
+
+/* Garante que o atributo "hidden" esconde mesmo (usado pelo filtro de posts) */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; }
+
+h1, h2, p, ul, dl { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+/* Cabeçalho, menu, conteúdo e rodapé: todos centrados e com a mesma largura máxima */
+.cabecalho, .menu, main, .rodape {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-inline: auto;
+}
+main { flex: 1; }
+
+/* Um "bloco" é uma caixa cinzenta */
+.bloco {
+  background: var(--cor-bloco);
+  padding: 16px 24px;
+}
+
+/* Títulos de secção (fora dos blocos) */
+main h2 { font-size: 20px; font-weight: 400; }
+/* Títulos dentro de blocos */
+.bloco h2 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+
+/* ---------- CABEÇALHO ---------- */
+.cabecalho {
+  min-height: 154px;
+  padding: 16px var(--margem-lateral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--cor-bloco);
+}
+.cabecalho h1 { font-size: 40px; font-weight: 400; line-height: 1.2; }
+
+/* ---------- MENU ---------- */
+.menu {
+  min-height: 38px;
+  padding: 8px var(--margem-lateral);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 40px;
+  background: var(--cor-bloco);
+  font-size: 14px;
+}
+.menu a.ativo { font-weight: 600; text-decoration: underline; }
+
+/* ---------- RODAPÉ ---------- */
+.rodape {
+  min-height: 80px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--cor-bloco);
+  font-size: 14px;
+}
+.rodape-links { display: flex; gap: 20px; }
+.rodape-links a { text-decoration: underline; }
+
+/* ---------- PÁGINAS COM MARGEM LATERAL (Blog, Jogos, Sobre, Jogo) ---------- */
+.pagina {
+  padding: 0 var(--margem-lateral) var(--espaco);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+}
+
+/* ---------- HOME E POSTS: 3 COLUNAS (barra | conteúdo | barra) ---------- */
+.tres-colunas {
+  display: grid;
+  grid-template-columns: var(--largura-barra) minmax(0, 1fr) var(--largura-barra);
+  gap: var(--espaco);
+  align-items: start;
+}
+.barra-esquerda { align-self: stretch; font-size: 14px; }
+.barra-esquerda h2:not(:first-child) { margin-top: 24px; }
+.barra-esquerda li + li, .barra-direita li + li { margin-top: 10px; }
+.barra-esquerda p { margin-top: 16px; }
+
+.barra-direita {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+  font-size: 14px;
+}
+.barra-direita p + p { margin-top: 10px; }
+.barra-direita a { text-decoration: underline; }
+
+.coluna-principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+}
+.ver-todos { font-size: 14px; }
+.ver-todos a { text-decoration: underline; }
+
+/* ---------- DESTAQUE (Home) ---------- */
+.destaque {
+  position: relative;
+  display: block;
+  height: 240px;
+  overflow: hidden;
+  background: var(--cor-bloco-escuro);
+}
+.destaque img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.destaque-texto {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 24px;
+  background: rgba(217, 217, 217, 0.92);
+}
+.destaque-texto small { font-size: 12px; }
+.destaque-texto strong { font-size: 20px; font-weight: 600; }
+.destaque:hover { text-decoration: none; }
+.destaque:hover .destaque-texto { background: var(--cor-bloco); }
+
+/* ---------- CARTÕES DE JOGOS ---------- */
+.grelha-cartoes { display: grid; gap: var(--espaco); }
+.grelha-cartoes.tres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grelha-cartoes.quatro { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--cor-bloco);
+}
+.cartao:hover { background: var(--cor-bloco-escuro); text-decoration: none; }
+.capa {
+  display: block;
+  width: 100%;
+  aspect-ratio: 315 / 250; /* mesmo formato das capas do itch.io */
+  object-fit: cover;
+  background: var(--cor-bloco-escuro);
+}
+.cartao-titulo { font-size: 14px; font-weight: 400; }
+.cartao-sub { font-size: 12px; }
+
+/* ---------- LISTAS DE POSTS ---------- */
+.lista-posts { display: flex; flex-direction: column; gap: var(--espaco); }
+.post-resumo { padding: 16px 24px; font-size: 14px; }
+.post-titulo { font-size: 16px; font-weight: 600; }
+.post-resumo .meta { display: block; font-size: 12px; margin: 2px 0 8px; }
+
+.lista-links { display: flex; flex-direction: column; gap: var(--espaco); }
+.linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espaco);
+  min-height: 56px;
+  padding: 8px 24px;
+  font-size: 14px;
+}
+.linha a:hover { text-decoration: underline; }
+.linha .tipo { text-align: center; }
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 10px 24px;
+  font-size: 14px;
+}
+.filtros a.ativo { font-weight: 600; text-decoration: underline; }
+
+/* ---------- PÁGINA DE UM POST ---------- */
+.barra-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: var(--espaco);
+  padding: 10px var(--margem-lateral);
+  background: var(--cor-bloco);
+  font-size: 14px;
+}
+.conteudo-post { padding: 24px; font-size: 18px; overflow-wrap: anywhere; }
+.conteudo-post > * + * { margin-top: 1em; }
+.conteudo-post h2, .conteudo-post h3 { margin-top: 1.6em; margin-bottom: 0; font-weight: 600; }
+.conteudo-post h2 { font-size: 24px; }
+.conteudo-post h3 { font-size: 20px; }
+.conteudo-post a { text-decoration: underline; }
+.conteudo-post ul { list-style: disc; padding-left: 1.4em; }
+.conteudo-post ol { padding-left: 1.4em; }
+.conteudo-post blockquote { margin-left: 0; padding-left: 16px; border-left: 4px solid var(--cor-bloco-escuro); }
+.conteudo-post pre, .conteudo-post code {
+  background: var(--cor-bloco-escuro);
+  font-size: 15px;
+}
+.conteudo-post pre { padding: 12px; overflow: auto; }
+.conteudo-post code { padding: 1px 4px; }
+.conteudo-post pre code { padding: 0; }
+.conteudo-post img { display: block; height: auto; }
+
+/* ---------- PÁGINA DE UM JOGO ---------- */
+.voltar { padding: 10px 24px; font-size: 14px; }
+.voltar a:hover { text-decoration: underline; }
+
+.duas-colunas {
+  display: grid;
+  grid-template-columns: minmax(0, 856fr) minmax(0, 472fr);
+  gap: var(--espaco);
+  align-items: start;
+}
+.coluna-media, .coluna-info { display: flex; flex-direction: column; gap: var(--espaco); }
+
+.imagem-principal {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--cor-bloco-escuro);
+}
+.capturas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--espaco); }
+.capturas img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--cor-bloco-escuro);
+}
+.descricao { padding: 24px; font-size: 18px; min-height: 160px; overflow-wrap: anywhere; }
+.descricao > * + * { margin-top: 1em; }
+.descricao a { text-decoration: underline; }
+
+.info { padding: 24px; }
+.info dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 16px;
+  font-size: 14px;
+}
+.info dt { font-weight: 600; }
+.info dd { margin: 0; }
+
+.botao {
+  display: block;
+  padding: 16px;
+  text-align: center;
+  background: var(--cor-bloco);
+  font-size: 14px;
+}
+.botao:hover { background: var(--cor-bloco-escuro); text-decoration: none; }
+
+/* ---------- PÁGINA SOBRE ---------- */
+.sobre-topo {
+  display: grid;
+  grid-template-columns: var(--largura-barra) minmax(0, 1fr);
+  gap: var(--espaco);
+  align-items: start;
+}
+.foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+}
+.foto img { width: 100%; height: 100%; object-fit: cover; }
+.coluna-texto { display: flex; flex-direction: column; gap: var(--espaco); }
+.bio { min-height: 150px; padding: 24px; font-size: 18px; }
+.bio > * + * { margin-top: 1em; }
+.bio a { text-decoration: underline; }
+
+/* ============================================================
+   TELEMÓVEL E ECRÃS PEQUENOS
+   ============================================================ */
+@media (max-width: 960px) {
+  :root { --margem-lateral: 16px; }
+
+  .tres-colunas, .duas-colunas, .sobre-topo { grid-template-columns: minmax(0, 1fr); }
+  .tres-colunas { padding: 0 16px var(--espaco); }
+
+  /* Nos ecrãs pequenos o conteúdo vem primeiro, as barras laterais depois */
+  .coluna-principal, .conteudo-post { order: 1; }
+  .barra-esquerda { order: 2; }
+  .barra-direita { order: 3; }
+
+  .grelha-cartoes.tres, .grelha-cartoes.quatro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foto { max-width: var(--largura-barra); }
+}
+
+@media (max-width: 560px) {
+  .cabecalho h1 { font-size: 28px; }
+  .grelha-cartoes.tres, .grelha-cartoes.quatro, .capturas { grid-template-columns: minmax(0, 1fr); }
+  .linha { flex-wrap: wrap; }
+  .destaque { height: 200px; }
+}

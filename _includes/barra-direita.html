@@ -1,0 +1,16 @@
+<!-- Barra lateral direita (usada na Home e nos posts): "Sobre mim" e "Links". -->
+<aside class="barra-direita">
+  <div class="bloco">
+    <h2>Sobre mim</h2>
+    <p>{{ site.sobre_curto }}</p>
+    <p><a href="{{ '/sobre/' | relative_url }}">Saber mais →</a></p>
+  </div>
+  <div class="bloco">
+    <h2>Links</h2>
+    <ul>
+      {% if site.itch_url != blank %}<li><a href="{{ site.itch_url }}" target="_blank" rel="noopener">itch.io</a></li>{% endif %}
+      {% if site.github_url != blank %}<li><a href="{{ site.github_url }}" target="_blank" rel="noopener">GitHub</a></li>{% endif %}
+      {% if site.email != blank %}<li><a href="mailto:{{ site.email }}">Email</a></li>{% endif %}
+    </ul>
+  </div>
+</aside>

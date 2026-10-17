@@ -16,7 +16,7 @@
   --largura-max: 1440px;       /* largura máxima do site */
   --espaco: 20px;              /* espaço entre blocos */
   --margem-lateral: 46px;      /* margem esquerda/direita nas páginas */
-  --largura-barra: 272px;      /* largura das barras laterais */
+  --largura-barra: clamp(170px, 20vw, 272px); /* largura das barras laterais (encolhe em janelas mais estreitas) */
 }
 
 /* ---------- BASE ---------- */
@@ -167,7 +167,8 @@ main h2 { font-size: 20px; font-weight: 400; }
 
 /* ---------- CARTÕES DE JOGOS ---------- */
 .grelha-cartoes { display: grid; gap: var(--espaco); }
-.grelha-cartoes.tres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* 3 cartões lado a lado; se o espaço apertar, passam para a linha de baixo */
+.grelha-cartoes.tres { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .grelha-cartoes.quatro { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 .cartao {
@@ -323,21 +324,29 @@ main h2 { font-size: 20px; font-weight: 400; }
 @media (max-width: 960px) {
   :root { --margem-lateral: 16px; }
 
-  .tres-colunas, .duas-colunas, .sobre-topo { grid-template-columns: minmax(0, 1fr); }
-  .tres-colunas { padding: 0 16px var(--espaco); }
+  /* A Home e os posts mantêm as 3 colunas (barra | conteúdo | barra) até ecrãs de telemóvel */
+  .duas-colunas, .sobre-topo { grid-template-columns: minmax(0, 1fr); }
 
-  /* Nos ecrãs pequenos o conteúdo vem primeiro, as barras laterais depois */
+  .grelha-cartoes.quatro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foto { max-width: var(--largura-barra); }
+}
+
+/* Só em ecrãs de telemóvel as 3 colunas passam a uma só */
+@media (max-width: 720px) {
+  .tres-colunas { grid-template-columns: minmax(0, 1fr); padding: 0 16px var(--espaco); }
+
+  /* O conteúdo vem primeiro, as barras laterais depois */
   .coluna-principal, .conteudo-post { order: 1; }
   .barra-esquerda { order: 2; }
   .barra-direita { order: 3; }
 
-  .grelha-cartoes.tres, .grelha-cartoes.quatro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .foto { max-width: var(--largura-barra); }
+  /* O bloco "Links" repete o rodapé, por isso fica escondido no telemóvel */
+  .barra-direita .bloco:last-child { display: none; }
 }
 
 @media (max-width: 560px) {
   .cabecalho h1 { font-size: 28px; }
-  .grelha-cartoes.tres, .grelha-cartoes.quatro, .capturas { grid-template-columns: minmax(0, 1fr); }
+  .grelha-cartoes.quatro, .capturas { grid-template-columns: minmax(0, 1fr); }
   .linha { flex-wrap: wrap; }
   .destaque { height: 200px; }
 }
